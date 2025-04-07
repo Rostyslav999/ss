@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Formularz Rejestracyjny</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f3f3f3;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px 25px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .success {
+      color: green;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="registerForm">
+    <h2>Formularz Rejestracyjny</h2>
+
+    <label for="imie">Imię:</label>
+    <input type="text" id="imie" name="imie" required>
+
+    <label for="nazwisko">Nazwisko:</label>
+    <input type="text" id="nazwisko" name="nazwisko" required>
+
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="bilet">Rodzaj biletu:</label>
+    <select id="bilet" name="bilet" required>
+      <option value="">-- Wybierz --</option>
+      <option value="normalny">Normalny</option>
+      <option value="ulgowy">Ulgowy</option>
+    </select>
+
+    <label>
+      <input type="checkbox" id="regulamin" name="regulamin" required>
+      Akceptuję regulamin
+    </label>
+
+    <button type="submit">Zarejestruj</button>
+
+    <p id="message"></p>
+  </form>
+
+  <script>
+    const form = document.getElementById('registerForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      message.textContent = '';
+      message.className = '';
+
+      const imie = form.imie.value.trim();
+      const nazwisko = form.nazwisko.value.trim();
+      const email = form.email.value.trim();
+      const bilet = form.bilet.value;
+      const regulamin = form.regulamin.checked;
+
+      if (!imie || !nazwisko || !email || !bilet || !regulamin) {
+        message.textContent = 'Wszystkie pola muszą być wypełnione!';
+        message.className = 'error';
+        return;
+      }
+
+      if (!email.includes('@')) {
+        message.textContent = 'Email musi zawierać znak \"@\"';
+        message.className = 'error';
+        return;
+      }
+
+      message.textContent = 'Rejestracja zakończona sukcesem!';
+      message.className = 'success';
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>
